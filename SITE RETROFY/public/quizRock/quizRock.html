@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Pop</title>
+    <link rel="stylesheet" href="../css/quizzes.css">
+    <link rel="shortcut icon" href="../assets/imgHome/logo discofone sozinho .svg">
+      <!-- Sweet alert -->
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+      <script src="../app.js"></script>
+      <!-- Sweet alert -->
+</head>
+
+<body>
+    <!-- start Quiz button -->
+    <div class="start_btn"><button class="comecar-btn">Começar quiz</button></div>
+
+    <!-- Info Box -->
+    <div class="info_box">
+        <div class="info-title"><span>Regras do Quiz</span></div>
+        <div class="info-list">
+            <div class="info">1. Depois de selecionar sua resposta, ela não poderá ser desfeita.</div>
+            <div class="info">2. Se você sair no meio do jogo, perderá seu progresso.</div>
+            <div class="info">3. Você ganhará pontos com base em suas respostas corretas.</div>
+        </div>
+        <div class="buttons">
+            <button class="quit">Voltar</button>
+            <button class="restart">Continuar</button>
+        </div>
+    </div>
+    <!-- Quiz Box -->
+    <div class="quiz_box">
+        <header>
+            <div class="title">Quiz - Rock Retrofy</div>
+        </header>
+        <section>
+            <div class="que_text">
+            </div>
+            <div class="option_list">
+            </div>
+        </section>
+        <footer>
+            <div class="total_que">
+            </div>
+            <button class="next_btn">Próxima</button>
+        </footer>
+    </div>
+ <div class="result_box">
+        <div class="icon">
+            <i class="fas fa-crown"></i>
+        </div>
+        <div class="complete_text">Você concluíu o Quiz Rock Retrofy!</div>
+        <div class="score_text">
+          </div>
+        <div class="buttons">
+            <button class="restart">Reiniciar</button>
+            <button class="quit">Sair do Quiz</button>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../quizRock/questoesRock.js"></script>
+<script src="quizRock.js"></script>
+

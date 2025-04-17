@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="shortcut icon" href="./assets/imgHome/logo discofone sozinho .svg">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Hora do Quiz! - Retrofy</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- <script src="./js/dashboard.js"></script> -->
+</head>
+
+<body onload="obterDados()">
+    <div id="modais"></div>
+    <div>
+        <nav class="menu-lateral">
+            <div class="botao_expandir">
+                <i class="bi bi-music-note-list" id="botao-expandir"></i>
+            </div>
+            <ul>
+                <li class="item-menu">
+                    <a href="playlists.html">
+                        <span class="icon"><i class="bi bi-cassette"></i></span>
+                        <span class="txt-link">Playlists</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="quiz.html">
+                        <span class="icon"><i class="bi bi-journal-check"></i></span>
+                        <span class="txt-link">Quiz</span>
+                    </a>
+                </li>
+                <li class="item-menu ativo">
+                    <a href="dashboard.html">
+                        <span class="icon"><i class="bi bi-bar-chart-line"></i></span>
+                        <span class="txt-link">Dashboard</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="./quizRock/contaConfig.html">
+                        <span class="icon"><i class="bi bi-person-circle"></i></span>
+                        <span class="txt-link">Conta</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="index.html">
+                        <span class="icon-sair"><i class="bi bi-box-arrow-left"></i></span>
+                        <span class="txt-link-sair">Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="inicio-txt">
+        <h2>Análise - Quiz</h2><br><br>
+        <p>A seguir veja uma análise dos quizzes:</p>
+    </div>
+    <div id="container-graficos">
+        <div class="grafico-1">
+            <h3 class="titulo-grafico">Quiz mais jogado pelos usuários</h3><br>
+            <canvas id="grafico1"></canvas>
+        </div>
+        <div class="grafico-2">
+            <h3 class="titulo-grafico">Última partida jogada</h3>
+            <canvas style="height: 220px;" id="grafico2"></canvas>
+        </div>
+        <div class="div_indicadores">
+            <div class="indicador-1">
+                <h3>Média do Quiz - Pop</h3>
+                <p id="mediaGeral0"></p>
+                <p id="media0"></p>
+            </div>
+            <div class="indicador-1">
+                <h3>Média do Quiz - Rock</h3>
+                <p id="mediaGeral1"></p>
+                <p id="media1"></p>
+            </div>
+            <div class="indicador-1">
+                <h3>Média do Quiz - Post Punk</h3>
+                <p id="mediaGeral2"></p>
+                <p id="media2"></p>
+            </div>
+        </div>
+    </div>
+    <div class="div-pontuacao">
+        <button class="buttonPontuacao" onclick="modal_score()">Meu record</button>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function fechar_modal() {
+        modais.innerHTML = "  ";
+    }
+
+    function modal_score() {
+
+        fetch(`/medidas/score/${sessionStorage.ID_USUARIO}`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (scoreQuiz) {
+                    console.log(scoreQuiz);
+
+                    var ps = ''
+                    for (var i = 0; i <= 2; i++) {
+                        if (scoreQuiz[i] == undefined) {
+                            ps += `<p>Não jogou ainda.</p>`
+                        } else {
+                            ps += `<p>Quiz ${scoreQuiz[i].Quiz} - ${scoreQuiz[i].PontuacaoRecord}pts.</p>`
+                        }
+                    }
+
+                    modais.innerHTML = `<div class="modal">
+                    <div class="fundo_modal">
+                        <div class="conteudo_modal"> 
+                            <div class="texto">
+                              <div class="fechar">
+                            <button onclick="fechar_modal()" class="botao_fechar">X</button>
+                            </div>
+                            <h1 class="score-pontuacao">Suas pontuações Records 🏆</h1>
+                            ${ps}
+                        </div>
+                    </div>
+                </div>
+            </div>`
+                })
+            }
+        })
+
+    }
+
+    var btnExpandir = document.querySelector('#botao-expandir')
+    var menuSide = document.querySelector('.menu-lateral')
+
+    btnExpandir.addEventListener('click', function () {
+        menuSide.classList.toggle('expandir')
+    })
+
+
+    var labels = []
+    var dados = []
+    function obterDados() {
+        fetch(`/medidas/mediaGeral`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (dadosMediaGeral) {
+                    dadosMediaGeral.forEach((dado, i) => {
+                        media = dado.Media
+                        document.getElementById(`mediaGeral${i}`).innerHTML = `Média geral de acertos dos usuários: ${dado.Media}`
+                    })
+                })
+            }
+        })
+
+        fetch(`/medidas/media/${sessionStorage.ID_USUARIO}/Pop`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (dadosMedia) {
+                    console.log(dadosMedia);
+
+                    media0.innerHTML = `<span>Sua média: ${dadosMedia[0].Media==null ? 0: dadosMedia[0].Media}</span>`
+                })
+            }
+        })
+
+        fetch(`/medidas/media/${sessionStorage.ID_USUARIO}/Rock`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (dadosMedia) {
+                    console.log(dadosMedia);
+
+                    media1.innerHTML = `<span>Sua média: ${dadosMedia[0].Media==null ? 0: dadosMedia[0].Media}</span>`
+                })
+            }
+        })
+        
+        
+        fetch(`/medidas/media/${sessionStorage.ID_USUARIO}/Post Punk`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (dadosMedia) {
+                    console.log(dadosMedia);
+
+                    media2.innerHTML = `<span>Sua média: ${dadosMedia[0].Media==null ? 0: dadosMedia[0].Media}</span>`
+                })
+            }
+        })
+
+        fetch(`/medidas/dados/`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    for (var i = 0; i < resposta.length; i++) {
+                        console.log(resposta[i]);
+                        var dado = resposta[i];
+                        labels.push(dado.categoria)
+                        dados.push(dado.contagem);
+                    };
+
+                    const data = {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Quantidade de jogadas',
+                            backgroundColor: ['#F887C9', '#BF6BB6', '#85529F', '#4B3B83', '#002563', '#0000FF'],
+                            data: dados
+                        }]
+                    };
+
+                    const config = {
+                        type: 'bar',
+                        data: data,
+                        options: {
+                            animation: { duration: 900 },
+                            hoverMode: 'index',
+                            stacked: false,
+                        }
+                    };
+
+                    const myChart = new Chart(
+                        document.getElementById('grafico1'),
+                        config);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+
+        var labels2 = ['Acertos', 'Erros']
+        var dados2 = []
+
+        fetch(`/medidas/pontuacao/${sessionStorage.ID_USUARIO}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${(resposta)}`);
+                    for (var i = 0; i < resposta.length; i++) {
+                        console.log(resposta[i]);
+                        var dado2 = resposta[i];
+                        // labels2.push(dado2.acertos)
+                        dados2.push(dado2.acertos);
+                        dados2.push(dado2.erros);
+                    };
+
+                    const data2 = {
+                        labels: [labels2[0], labels2[1]],
+                        datasets: [{
+                            label: 'Quantidade',
+                            backgroundColor: ['#F887C9', '#BF6BB6', '#85529F', '#4B3B83', '#002563', '#0000FF'],
+                            data: [dados2[0], dados2[1]]
+                        }]
+                    };
+
+                    const config2 = {
+                        type: 'doughnut',
+                        data: data2,
+                        options: {
+                            animation: { duration: 900 },
+                            hoverMode: 'index',
+                            stacked: false,
+                        },
+                    };
+
+                    const myChart2 = new Chart(
+                        document.getElementById('grafico2'),
+                        config2);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+</script>

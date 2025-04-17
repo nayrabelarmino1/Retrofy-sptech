@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat';
+}
+
+body {
+    height: 80vh;
+    background-color: #F6F3EA;
+    color: #3B2F57;
+    overflow: hidden scroll;
+}
+
+nav.menu-lateral {
+    width: 80px;
+    height: 100vh;
+    background-color: #bd90d6af;
+    padding: 40px 0 40px 1%;
+    box-shadow: 3px 0 0 #DCB9FF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transition: .7s;
+    z-index: 2;
+}
+
+nav.menu-lateral.expandir {
+    width: 300px;
+    backdrop-filter: blur(8px);
+}
+
+.botao_expandir {
+    width: 100%;
+    padding-left: 10px;
+    margin-bottom: 30px;
+}
+
+.botao_expandir > i {
+    color: #ffff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+ul{
+    height: 100%;
+    list-style-type: none;
+}
+
+ul li.ativo {
+    background-color: #DCB9FF;
+}
+
+ul li.item-menu:hover{
+    background-color: #DCB9FF;
+}
+
+ul li.item-menu{
+    transition: .2s;
+}
+
+ul li.item-menu a{
+    color: #ffff;
+    text-decoration: none;
+    font-size: 17px;
+    padding: 20px 4%;
+    display: flex;
+    margin-bottom: 20px;
+    line-height: 25px;
+}
+
+.txt-link{
+    margin-left: 40px;
+}
+
+.txt-link-sair{
+    margin-left: 40px;
+    color: rgb(151, 16, 16);
+    text-decoration: underline;
+}
+
+.icon > i{
+    font-size: 25px;
+}
+
+.icon-sair > i {
+    font-size: 25px;
+    color: rgb(151, 16, 16);
+    margin-left: 8px;
+}
+
+.icon {
+    margin-left: 8px;
+}
+
+.container-inicial {
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+}
+
+h2.titulo-inicial {
+    color: #5A008D;
+}
+
+.container-principal {
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: #bd90d673;
+    height: 300px;
+    width: 520px;
+    border-radius: 20px;
+    margin-left: 30px;
+
+}
+
+.container-principal p {
+    color: #5A008D;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.spotify-perfil {
+    border-radius: 20px;
+    margin-left: -5px;
+}
+
+p {
+    color: #3B2F57
+}
+
+.div-full {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+    margin-left: 80px;
+}
+
+.div-filha {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 95vh;
+    padding: 3rem;
+    justify-content: center;
+    align-items: center;
+    gap: 5vh;
+    margin-top: 30px;
+}
+
+.filha2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3vh;
+    width: 30%;
+    height: 90vh;
+    margin-left: 50px;
+    margin-top: 70px;
+}
+
+
+canvas {
+    max-width: 250px;
+}
+
+.playlist {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40px;
+    background-color: #bd90d673;
+    height: 400px;
+    width: 320px;
+    border-radius: 20px;
+}
+
+h2 {
+    color: #5A008D;
+    margin-bottom: 3px;
+}
+
+.div-principal {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;    
+    margin-left: 140px;
+}
+
+.h2-sessao2 {
+    color: #5A008D;
+    margin-bottom: 30px;
+    margin-left: 180px; 
+}
+
+#pop {
+    width: 100%;
+    height: 100%;
+}
+
+#rock {
+    width: 100%;
+    height: 100%;
+}
+
+#postpunk {
+    width: 100%;
+    height: 100%;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%;
+    height: 100px;
+    gap: 6vw;
+    background-color: #DCB9FF;
+}
+
+hr {
+    width: 70rem;
+    border: 1px solid #3B2F57;
+}
+
+.redes {
+    display: flex;
+    gap: 1vw;
+    cursor: pointer;
+}
+
+.social {
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.social:hover {
+    -webkit-transform: scale(1);
+    transform: scale(1.2);
+}
